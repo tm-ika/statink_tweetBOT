@@ -3,6 +3,8 @@ Splatooon2のステージスケジュールとStat.inkの過去戦績から勝�
 A tweet BOT that provides Splatoon2 win rates by schedule with data from stat.ink.
 
 2時間ごとに更新されるステージ情報をチェックしそのステージの勝率を元にガチマッチに潜るべきか否か判断基準をツイートしてくれる。
+![image](https://user-images.githubusercontent.com/102900238/161430074-b54ad54a-134c-4924-ab0f-b99ea3c52d8f.png)
+
 
 # 必要なもの
 - Twitterアカウント
