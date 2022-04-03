@@ -22,7 +22,7 @@ A tweet BOT that provides Splatoon2 win rates by schedule with data from stat.in
 >access_token_secret = "" #ACCESS_TOKEN_SECRET
 - 戦績チェックをしたいユーザのTwitterアカウントとStat.inkアカウントをリスト形式で記載
 - 複数ユーザに対応
-> # 0:twitter_account, 1:stat.ink_account
+> "0:twitter_account, 1:stat.ink_account"
 > account_list = [["@twitter_account_hoge","@statink_account_hoge"],["@twitter_account_fuga","@statink_account_fuga"],,,]    
 - Pythonを実行
 
@@ -34,7 +34,7 @@ A tweet BOT that provides Splatoon2 win rates by schedule with data from stat.in
 > -100     -10   0   +10       +30      +100
 > +---------+----+----+----+----+---------+
 >     x     | ?  | △ |    o    |    ◎
-> """◎ 絶対行った方がいい！！
+> """\n◎ 絶対行った方がいい！！
 >    ○ そこそこ期待できそう！
 >    △ 悪くはない
 >    ？ 行っても無駄かも
