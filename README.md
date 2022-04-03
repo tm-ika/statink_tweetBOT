@@ -13,5 +13,32 @@ A tweet BOT that provides Splatoon2 win rates by schedule with data from stat.in
 - Python実行環境
 
 # 実行方法
-- Twitterアカウント
-> aaa
+- Twitter API を実行するための認証情報を入力
+>consumer_key = "" #API_KEY
+>consumer_secret = "" #API_SECRET
+>access_token = "" #ACCESS_TOKEN
+>access_token_secret = "" #ACCESS_TOKEN_SECRET
+- 戦績チェックをしたいユーザのTwitterアカウントとStat.inkアカウントをリスト形式で記載
+- 複数ユーザに対応
+> # 0:twitter_account, 1:stat.ink_account
+> account_list = [["@twitter_account_hoge","@statink_account_hoge"],["@twitter_account_fuga","@statink_account_fuga"],,,]    
+- Pythonを実行
+
+# 処理の概要
+- イカの処理をscheduleモジュールで定期実行する
+- スケジュール情報の取得：スケジュール情報BOT(https://twitter.com/splatoon2_mini)の定時ツイートを検知しステージ情報を把握
+- ステージごとの戦績を取得：Stat.inkのWebページからスクレイピング
+- ガチパワー増減を予想：2時間で14戦実施した想定で勝+10：敗-10として、２ステージの勝率を乗算し期待値を導出
+> -100     -10   0   +10       +30      +100
+> +---------+----+----+----+----+---------+
+>     x     | ?  | △ |    o    |    ◎
+>    # ◎ 絶対行った方がいい！！
+>    # ○ そこそこ期待できそう！
+>    # △ 悪くはない
+>    # ？ 行っても無駄かも
+>    # × 大事故が起きます
+- 解析結果の通知：時間、ルール、ステージ、勝率、XP、パワー増減をTwitterアカウントにツイート
+
+# 今後の予定
+- スケジュール情報の取得先の変更 https://splatoon2.ink/
+- 通知手段の変更 ツイートだけでなくDM、メールに対応
