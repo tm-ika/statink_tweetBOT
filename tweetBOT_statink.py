@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 
 import schedule
 import time
-from datetime import datetime
+import datetime
 
 
 # Twitter上の表記とstst.ink上の表記の変換
@@ -215,7 +215,7 @@ def auto_stat_main(account_list):
 # スケジュールON
 def job():
     s = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
-    print("[+] I'm working..."+s)
+    print("[+] I'm working... "+s)
     auto_stat_main(account_list)
 
 
@@ -227,7 +227,9 @@ def cancel():
 # スケジュールを利用して定期実行
 if __name__ == '__main__':
     # スケジュール設定
-    schedule.every(120).seconds.do(job)
+    rotation_sec = 300
+    print("定期実行：毎" + str(rotation_sec) + "秒")
+    schedule.every(rotation_sec).seconds.do(job)
     # schedule.every().day.at("14:47").do(cancel)
 
     while True:
