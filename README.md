@@ -11,7 +11,6 @@ A tweet BOT that provides Splatoon2 win rates by schedule with data from stat.in
 - Twitterデベロッパーアカウント
 - Stat.inkアカウント（BOT実行にログインは不要）
 - Stat.inkにUploadされた戦績
-- アカウント
 - Python実行環境
 
 # 実行方法
