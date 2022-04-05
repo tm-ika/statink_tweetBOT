@@ -19,7 +19,7 @@ tw2stat_rule = {"▼ガチエリア":"standard-gachi-area", "▼ガチヤグラ"
 
 
 # Twieterアカウントとstat.inkアカウントをリストで設定。複数ユーザにも対応
-account_list = [["@YOUR_TWITTER_ACCOUNT","@YOUR_STATINK_ACCOUNT"],["@YOUR_TWITTER_ACCOUNT","@YOUR_STATINK_ACCOUNT"]]
+account_list = twitter_auth_info.account_list
 tw_stage_info = "@splatoon2_mini"
 tw_stage_info = tw_stage_info.replace("@","")
 
@@ -68,7 +68,7 @@ def get_stage(msg):
         print("[!] Format Error : Rule & Stage")
         return False
     else:
-        print("[+] " + gachi_time + gachi_rule + gachi_stages)
+        print(gachi_time, gachi_rule, gachi_stages)
         return gachi_time, gachi_rule, gachi_stages
     
 
