@@ -9,6 +9,9 @@ import schedule
 import time
 import datetime
 
+# 認証用外部ファイルの読み込み
+import twitter_auth_info
+
 
 # Twitter上の表記とstst.ink上の表記の変換
 tw2stat_stage = {"Ｂバスパーク" : "bbass","アジフライスタジアム" : "ajifry", "海女美術大学" : "ama", "アロワナモール" : "arowana", "アンチョビットゲームズ" : "anchovy", "エンガワ河川敷" : "engawa", "ガンガゼ野外音楽堂" : "gangaze", "コンブトラック" : "kombu", "ザトウマーケット" : "zatou", "ショッツル鉱山" : "shottsuru", "スメーシーワールド" : "sumeshi", "タチウオパーキング" : "tachiuo", "チョウザメ造船" : "chozame", "デボン海洋博物館" : "devon", "ハコフグ倉庫" : "hakofugu", "バッテラストリート" : "battera", "フジツボスポーツクラブ" : "fujitsubo", "ホッケふ頭" : "hokke", "ホテルニューオートロ" : "otoro", "マンタマリア号" : "manta", "ムツゴ楼" : "mutsugoro", "モズク農園" : "mozuku", "モンガラキャンプ場" : "mongara"}
@@ -21,15 +24,15 @@ tw_stage_info = "@splatoon2_mini"
 tw_stage_info = tw_stage_info.replace("@","")
 
 
-# Twitterの認証、取得したキーを格納
-ck = "YOUR_API_KEY"              # consumer_key
-cs = "YOUR_API_SECRET"           # consumer_secret
-at = "YOUR_ACCESS_TOKEN"         # access_token
-ats = "YOUR_ACCESS_TOKEN_SECRET" # access_token_secret
+# Twitterの認証、取得したキーを格納 twitter_auth_info.pyから読み込み
+ck = twitter_auth_info.ck   # consumer_key
+cs = twitter_auth_info.cs   # consumer_secret
+at = twitter_auth_info.at   # access_token
+ats = twitter_auth_info.ats # access_token_secret
 
 
 # Twitter APIの動作確認
-print("[+] Health Check,,,")
+print("[+] Health Check,,," + tw_stage_info)
 auth = tweepy.OAuth1UserHandler(consumer_key=ck, consumer_secret=cs, access_token=at, access_token_secret=ats)
 api = tweepy.API(auth)
 t_lines = api.user_timeline(screen_name = tw_stage_info)
@@ -56,7 +59,6 @@ def get_stage(msg):
     res_list = []
     res_text = res_text.strip().replace("\n\n","\n")
     res_list = res_text.split("\n")
-    print(res_list)
 
     gachi_time = res_list[0]
     gachi_rule = res_list[3]
@@ -66,7 +68,7 @@ def get_stage(msg):
         print("[!] Format Error : Rule & Stage")
         return False
     else:
-        print(gachi_time, gachi_rule, gachi_stages)
+        print("[+] " + gachi_time + gachi_rule + gachi_stages)
         return gachi_time, gachi_rule, gachi_stages
     
 
@@ -75,7 +77,7 @@ def get_win_rate(stat_account, gachi_rule, gachi_stage):
     url = "https://stat.ink/" + stat_account + "/spl2?filter%5Brule%5D=" + tw2stat_rule[gachi_rule] +"&filter%5Bmap%5D=" + tw2stat_stage[gachi_stage] \
           + "&filter%5Bweapon%5D=&filter%5Brank%5D=&filter%5Bresult%5D=&filter%5Bhas_disconnect%5D=&filter%5Bterm%5D=last-50-battles&filter%5Bterm_from%5D=&filter%5Bterm_to%5D=&filter%5Btimezone%5D=Asia%2FTokyo"
 
-    print("[+] HTTPreq to stat.ink")
+    print("[+] HTTPreq to stat.ink...")
     print(url)
     res = requests.get(url)
     res_text = res.text
@@ -131,8 +133,8 @@ def prepare_message(stats):
             str_stats = str_stats + "\n"
         str_stats = str_stats  + " ┗ "  + stats[i][0] + " " + str(stats[i][1]) + "(" + str(stats[i][2]) + ")"
 
-    power = round(power,1)
-    win_num = round(win_num,1)
+    power = round(power, 1)
+    win_num = round(win_num, 1)
 
     # 評価基準
     if power >= 30:
@@ -166,7 +168,6 @@ def tweet_message(msg):
 # ステージ情報BOTのタイムラインを確認し、更新状況を把握
 def get_stage_tweet(checked_id):
     t_lines = api.user_timeline(screen_name = tw_stage_info)
-    # print(t_lines[0].id, checked_id)
 
     if t_lines[0].id > checked_id :
         print("[+] New tweet found!! " + str(checked_id) + " -> " + str(t_lines[0].id))
@@ -228,7 +229,7 @@ def cancel():
 if __name__ == '__main__':
     # スケジュール設定
     rotation_sec = 300
-    print("定期実行：毎" + str(rotation_sec) + "秒")
+    print("\n定期実行：毎" + str(rotation_sec) + "秒")
     schedule.every(rotation_sec).seconds.do(job)
     # schedule.every().day.at("14:47").do(cancel)
 
