@@ -15,13 +15,15 @@ A tweet BOT that provides Splatoon2 win rates by schedule with data from stat.in
 
 # 実行方法
 - Twitter API を実行するための認証情報を入力
->ck = ""  #API_KEY  
->cs = ""  #API_SECRET  
->at = ""  #ACCESS_TOKEN  
->ats = "" #ACCESS_TOKEN_SECRET  
+"""
+ck = ""  #API_KEY  
+cs = ""  #API_SECRET  
+at = ""  #ACCESS_TOKEN  
+ats = "" #ACCESS_TOKEN_SECRET  
+"""
 - 戦績チェックをしたいユーザのTwitterアカウントとStat.inkアカウントをリスト形式で記載
 - 複数ユーザに対応
-> account_list = [["@twitter_account_hoge","@statink_account_hoge"],["@twitter_account_fuga","@statink_account_fuga"],,,]  
+" account_list = [["@twitter_account_hoge","@statink_account_hoge"],["@twitter_account_fuga","@statink_account_fuga"],,,]  "
 - Pythonを実行
 
 # 処理の概要
